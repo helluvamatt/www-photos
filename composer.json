@@ -1,0 +1,18 @@
+{
+	"autoload" : {
+		"psr-4" : {
+		    "" : "src",
+		    "Schneenet\\Photos\\Models\\": "app/models"
+		}
+	},
+	"name" : "schneenet/photos",
+	"type" : "project",
+	"license" : "GPL-2.0+",
+	"require" : {
+		"php" : ">=5.5",
+		"slim/slim" : "2.*",
+		"twig/twig" : "1.*",
+		"slim/views" : "0.1.*",
+		"illuminate/database" : "4.2.*"
+	}
+}

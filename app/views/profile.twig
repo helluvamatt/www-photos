@@ -1,0 +1,63 @@
+{% extends "default.twig" %}
+
+{% block title %}Photos | {{ profile_user.display_name }}{% endblock %}
+
+{% block content %}
+<div class="container" id="page_content">
+	<div class="row">
+		<div class="col-xs-12"><h3>{{ profile_user.display_name }}</h3></div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-3">
+{% if profile_picture %}
+			<img src="{{ urlFor('/img/:id', {'id': profile_picture }) }}" alt="Picture" class="img-responsive img-thumbnail" />
+			
+{% else %}
+			<img src="{{ siteUrl('/assets/img/default_picture.png') }}" alt="Picture" class="img-responsive img-thumbnail" />
+{% endif %}
+		</div>
+		<div class="col-xs-12 col-sm-9">
+{% if profile %}
+{%   if profile.social %}
+			<div class="row">
+				<div class="col-xs-12"><h4>Social</h4></div>
+			</div>
+{%     if profile.social.twitter %}
+			<div class="row">
+				<div class="col-xs-12 col-sm-3 col-md-2"><strong>Twitter</strong></div>
+				<div class="col-xs-12 col-sm-9 col-md-10"><a href="http://twitter.com/{{ profile.social.twitter }}"><span class="fa fa-fw fa-twitter-square"></span>{{ profile.social.twitter }}</a></div>
+			</div>
+{%     endif %}
+{%     if profile.social.facebook %}
+			<div class="row">
+				<div class="col-xs-12 col-sm-3 col-md-2"><strong>Facebook</strong></div>
+				<div class="col-xs-12 col-sm-9 col-md-10"><span class="fa fa-fw fa-facebook-square"></span>{{ profile.social.facebook }}</div>
+			</div>
+{%     endif %}
+{%     if profile.social.google %}
+			<div class="row">
+				<div class="col-xs-12 col-sm-3 col-md-2"><strong>Google+</strong></div>
+				<div class="col-xs-12 col-sm-9 col-md-10"><span class="fa fa-fw fa-googleplus-square"></span>{{ profile.social.google }}</div>
+			</div>
+{%     endif %}
+{%     if profile.social.instagram %}
+			<div class="row">
+				<div class="col-xs-12 col-sm-3 col-md-2"><strong>Instagram</strong></div>
+				<div class="col-xs-12 col-sm-9 col-md-10"><a href="http://instagram.com/{{ profile.social.instagram }}"><span class="fa fa-fw fa-instagram"></span>{{ profile.social.instagram }}</a></div>
+			</div>
+{%     endif %}
+{%     if profile.social.github %}
+			<div class="row">
+				<div class="col-xs-12 col-sm-3 col-md-2"><strong>Github</strong></div>
+				<div class="col-xs-12 col-sm-9 col-md-10"><a href="http://github.com/{{ profile.social.github }}"><span class="fa fa-fw fa-github-square"></span>{{ profile.social.github }}</a></div>
+			</div>
+{%     endif %}
+{%   endif %}
+{% else %}
+			<div class="alert alert-warning">There doesn't seem to be anything here.</div>
+{% endif %}
+		</div>
+	</div>
+{% include 'photos.twig' %}
+</div>
+{% endblock %}

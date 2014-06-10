@@ -1,0 +1,28 @@
+# Composer
+/vendor/
+composer.phar
+
+# Eclipse
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch
+.cproject
+.buildpath
+.target
+.texlipse
+
+# Application specific
+/data/
+/app/logs/
+/app/config.json

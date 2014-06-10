@@ -1,0 +1,15 @@
+{% extends "default.twig" %}
+
+{% block title %}Photos | {{ title }}{% if title is empty %}Browse{% endif %}{% endblock %}
+
+{% block content %}
+<div class="container">
+{%   if albums %}
+{%     include "albums.twig" %}
+{%   elseif photos %}
+{%     include "photos.twig" %}
+{%   else %}
+	<div class="alert alert-warning">There doesn't seem to be anything here.</div>
+{%   endif %}
+</div>
+{% endblock %}

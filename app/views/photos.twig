@@ -1,0 +1,13 @@
+{% for photo in photos %}
+{%     if loop.index0 % 6 == 0 %}
+	<div class="row">
+{%     endif %}
+		<div class="col-xs-6 col-sm-2">
+			<!-- Render Photo -->
+		</div>
+{%     if loop.index0 % 6 == 5 or loop.last %}
+	</div>
+{%     endif %}
+{% else %}
+	<div class="alert alert-warning">There doesn't seem to be anything here.</div>
+{% endfor %}

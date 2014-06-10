@@ -1,0 +1,80 @@
+{% extends "default.twig" %} {% block stylesheets %}
+
+<link rel="stylesheet" href="{{ siteUrl('/assets/css/jquery.fileupload.css') }}" />
+<link rel="stylesheet" href="{{ siteUrl('/assets/css/jquery-ui-1.10.4.custom.css') }}" />
+
+{% endblock %} {% block title %}Photos | {{ title }}{% if title is empty %}Browse{% endif %}{% endblock %} {% block content %}
+<div class="container">
+	<div class="page-header">
+		{% if editor_mode %}
+		<form id="upload_form" name="upload" method="POST" enctype="multipart/form-data" action="{{ urlFor('POST/api/upload') }}">
+		<input type="hidden" name="album_id" value="{{ album_id }}" />
+		<div class="pull-right">
+			<a href="#" class="btn btn-success btn-with-tooltip fileinput-button" data-toggle="tooltip" data-placement="bottom" title="Maximum 100 photos; 5 MB each; JPG, PNG, or GIF only.">
+				<span class="fa fa-fw fa-plus"></span>
+				<span>Add Photos</span>
+				<input id="image_upload" type="file" name="files[]" data-url="{{ urlFor('POST/api/upload') }}" multiple>
+			</a>
+		</div>
+		</form>
+		{% endif %}
+		<h2>{{ title }}</h2>
+	</div>
+
+	<div id="empty_alert" class="alert alert-warning">There doesn't seem to be anything here.</div>
+	<div id="gallery" data-load-url="{{ urlFor('POST/api/album/photos') }}" data-album-id="{{ album_id }}" data-start="0"></div>
+	<div id="gallery_loading" class="alert alert-info center" style="display: none;">
+		<i class="fa fa-spin fa-refresh fa-2x fa-fw"></i>
+		<span style="font-size: 1.5em;">Loading...</span>
+	</div>
+</div>
+
+<div id="error_modal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Error</h4>
+			</div>
+			<div class="modal-body">
+				<div id="error_modal_content"></div>
+				<div class="center"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/template" id="gallery_item_template">
+
+	<div class="gallery-item photo{% if editor_mode %} editable{% endif %}">
+		<div class="thumbnail">
+{% if editor_mode %}
+			<div class="toolbar">
+				<a href="#" class="btn btn-danger btn-xs action-delete"><i class="fa fa-trash-o"></i></a>
+			</div>
+{% endif %}
+			<div class="thumb-container">
+				<div class="thumb-cell">
+					<div class="img-placeholder" style="font-size: 148px;"><span class="fa fa-camera"></span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</script>
+
+{% endblock %}
+
+{% block javascripts %}
+{% if editor_mode %}
+<script src="{{ siteUrl('/assets/js/vendor/jquery.ui.widget.js') }}"></script>
+<script src="{{ siteUrl('/assets/js/vendor/jquery.iframe-transport.js') }}"></script>
+<script src="{{ siteUrl('/assets/js/vendor/jquery.fileupload.js') }}"></script>
+<script src="{{ siteUrl('/assets/js/vendor/jquery.fileupload-process.js') }}"></script>
+<script src="{{ siteUrl('/assets/js/vendor/jquery.fileupload-validate.js') }}"></script>
+<script src="{{ siteUrl('/assets/js/vendor/jquery-ui-1.10.4.custom.js') }}"></script>
+
+<script src="{{ siteUrl('/assets/js/album-manager.js') }}"></script>
+{% endif %}
+<script src="{{ siteUrl('/assets/js/album-viewer.js') }}"></script>
+{% endblock %}

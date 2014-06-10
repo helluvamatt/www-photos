@@ -1,0 +1,27 @@
+
+	<div class="page-header">
+		<h2>{{ title }}</h2>
+	</div>
+{% for album in albums %}
+	<!-- Render Album -->
+	<div class="gallery-item album">
+		<a href="{{ urlFor('/album/:id', {'id' :album.id}) }}" class="thumbnail">
+			<div class="thumb-container">
+				<div class="thumb-cell">
+{% if album.default_picture %}
+					<img src="{{ urlFor('/thumb/:id', {'id': album.default_picture.id ~ '.' ~ album.default_picture.type}) }}" alt="default_picture" title="{{ album.title }}" />
+{% elseif album.photos %}
+					<img src="{{ urlFor('/thumb/:id', {'id': album.photos[0].id ~ '.' ~ album.photos[0].type}) }}" alt="album.photos[0]" title="{{ album.title }}" />
+{% else %}
+					<div style="text-align: center; font-size: 148px;"><span class="fa fa-camera"></span></div>
+{% endif %}
+				</div>
+			</div>
+			<div class="caption" style="text-align: center;">
+				<strong>{{ album.title }}</strong>
+			</div>
+		</a>
+	</div>
+{% else %}
+	<div class="alert alert-warning">There doesn't seem to be anything here.</div>
+{% endfor %}
